@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elbethel Moges — Architectural Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #F7F4EF;
+            --bg2: #EEEAE2;
+            --fg: #1a1814;
+            --muted: #8a8680;
+            --accent: #2E4A3E;
+            --accent2: #C4A882;
+            --border: rgba(26, 24, 20, 0.08);
+            
+            --cormorant: 'Cormorant Garamond', Georgia, serif;
+            --jost: 'Jost', sans-serif;
+            --easing: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.6s;
+            
+            --max-content-width: 1300px;
+        }
+
+        html, body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--jost);
+            font-weight: 300;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--cormorant);
+            font-weight: 300;
+            color: var(--fg);
+            line-height: 1.1;
+        }
+
+        p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all var(--duration) var(--easing);
+        }
+
+        .grid-container {
+            max-width: var(--max-content-width);
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container { padding: 0 1.5rem; }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(247, 244, 239, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: transform var(--duration) var(--easing);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        .brand-logo {
+            font-family: var(--cormorant);
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+            color: var(--muted);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--fg);
+        }
+
+        .page-view {
+            transition: opacity var(--duration) var(--easing), transform var(--duration) var(--easing);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-view.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-section {
+            padding: 15rem 0 8rem 0;
+        }
+
+        .hero-layout-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 0.8fr;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+
+        .hero-statement {
+            font-size: 4rem;
+            line-height: 1.15;
+            margin-bottom: 4rem;
+        }
+
+        .hero-statement em {
+            font-family: var(--cormorant);
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .profile-image-container {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background-color: var(--bg2);
+            border-radius: 2px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(15%);
+        }
+
+        .meta-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            border-top: 1px solid var(--border);
+            padding-top: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .meta-tagline {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent2);
+            font-weight: 500;
+        }
+
+        .meta-biography {
+            font-size: 1.2rem;
+            font-family: var(--cormorant);
+            line-height: 1.6;
+            max-width: 780px;
+        }
+
+        @media (max-width: 992px) {
+            .hero-layout-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .profile-image-container { max-width: 320px; order: -1; }
+            .hero-statement { font-size: 2.6rem; margin-bottom: 2rem; }
+            .meta-intro-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+
+        .works-section {
+            padding: 8rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--muted);
+            margin-bottom: 3.5rem;
+            display: block;
+        }
+
+        .category-group {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-family: var(--cormorant);
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--fg);
+            padding-bottom: 0.5rem;
+        }
+
+        .works-interactive-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-row-item {
+            display: flex;
+            align-items: baseline;
+            padding: 2.2rem 0;
+            border-top: 1px solid var(--border);
+            cursor: pointer;
+            position: relative;
+            gap: 3rem;
+        }
+
+        .work-row-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .work-number {
+            font-size: 0.85rem;
+            color: var(--muted);
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .work-title-text {
+            font-size: 2.2rem;
+            flex-grow: 1;
+            transition: transform var(--duration) var(--easing), color var(--duration) var(--easing);
+        }
+
+        .work-type-meta {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .work-row-item:hover .work-title-text {
+            transform: translateX(15px);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .work-row-item { flex-direction: column; gap: 0.5rem; padding: 1.8rem 0; }
+            .work-title-text { font-size: 1.6rem; }
+            .work-type-meta { text-align: left; font-size: 0.75rem; }
+        }
+
+        .disciplines-section {
+            padding: 8rem 0;
+            background-color: var(--bg2);
+        }
+
+        .disciplines-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .discipline-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .discipline-column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .discipline-column li {
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(26, 24, 20, 0.05);
+            padding-bottom: 0.8rem;
+        }
+
+        .discipline-column li span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .disciplines-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
+        .case-study-view {
+            padding-top: 12rem;
+        }
+
+        .case-header {
+            margin-bottom: 5rem;
+        }
+
+        .back-cta {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .back-cta:hover { color: var(--fg); }
+
+        .case-title {
+            font-size: 4.5rem;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .case-summary-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .meta-block .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-block .val {
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .case-media-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            padding-bottom: 8rem;
+        }
+
+        .hero-showcase-frame {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: var(--bg2);
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .hero-showcase-frame img, .secondary-media-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .narrative-block-center {
+            max-width: 800px;
+            margin: 2rem 0;
+        }
+
+        .narrative-block-center h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-subheading {
+            font-family: var(--cormorant);
+            font-size: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .gallery-media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        /* Specific Horizontal Grid Layout for Certificates */
+        .certificates-media-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .certificates-media-grid .secondary-media-frame {
+            aspect-ratio: 4/3;
+        }
+
+        @media (max-width: 768px) {
+            .certificates-media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .secondary-media-frame {
+            background-color: var(--bg2);
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .pdf-download-card {
+            background-color: var(--bg2);
+            padding: 3rem;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .pdf-download-card h4 {
+            font-size: 1.8rem;
+        }
+
+        .pdf-btn {
+            display: inline-block;
+            font-family: var(--jost);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 1rem 2rem;
+            background-color: var(--fg);
+            color: var(--bg);
+            border: 1px solid var(--fg);
+            transition: all var(--duration) var(--easing);
+        }
+
+        .pdf-btn:hover {
+            background-color: transparent;
+            color: var(--fg);
+        }
+
+        .empty-media-notice {
+            padding: 6rem 2rem;
+            text-align: center;
+            border: 1px dashed var(--border);
+            font-family: var(--cormorant);
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .see-more-trigger-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .see-more-btn {
+            font-family: var(--jost);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 1.2rem 2.5rem;
+            border: 1px solid var(--fg);
+            background: transparent;
+            color: var(--fg);
+            cursor: pointer;
+            transition: all var(--duration) var(--easing);
+        }
+
+        .see-more-btn:hover {
+            background-color: var(--fg);
+            color: var(--bg);
+        }
+
+        .hidden-gallery-item {
+            display: none !important;
+        }
+
+        @media (max-width: 992px) {
+            .case-title { font-size: 3rem; }
+            .case-summary-meta { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .gallery-media-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .contact-section {
+            padding: 10rem 0 6rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contact-layout h3 {
+            font-size: 3.2rem;
+            max-width: 550px;
+            line-height: 1.2;
+        }
+
+        .contact-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .contact-row-entry {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .contact-row-entry .tag-lbl {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-row-entry .link-val {
+            font-family: var(--cormorant);
+            font-size: 1.7rem;
+            display: inline-block;
+        }
+
+        .contact-row-entry a.link-val:hover {
+            color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        @media (max-width: 992px) {
+            .contact-layout { grid-template-columns: 1fr; gap: 4rem; }
+            .contact-layout h3 { font-size: 2.4rem; }
+        }
+
+        .studio-footer {
+            padding: 3.5rem 0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="global-header">
+        <div class="grid-container nav-inner">
+            <div class="brand-logo">Elbethel M.</div>
+            <nav>
+                <ul>
+                    <li><a href="#home-view" class="nav-anchor-link active">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-anchor-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN INDEX VIEW CONTAINER -->
+    <main id="home-view" class="page-view">
+        <section class="grid-container hero-section">
+            <div class="hero-layout-grid">
+                <div>
+                    <h1 class="hero-statement">
+                        Designing space, syntax, and structural imagery with <em>intentional minimalism</em>.
+                    </h1>
+                </div>
+                <div class="profile-image-container">
+                    <img src="images/elbethel-profile.jpg" alt="Elbethel Moges Profile Portrait">
+                </div>
+                
+                <div class="meta-intro-grid">
+                    <div class="meta-tagline">Architectural & Graphic Practice</div>
+                    <div class="meta-biography">
+                        Based in Addis Ababa, completing deep-level spatial investigations and structural planning at Adama Science and Technology University (ASTU). Developing spatial design frameworks, editorial book compositions, and minimalist visual identities.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grouped Selected Project Index Stream -->
+        <section class="grid-container works-section">
+            <span class="section-label">Selected Works Index</span>
+            
+            <!-- Architecture Group -->
+            <div class="category-group">
+                <h2 class="category-title">Architecture</h2>
+                <div class="works-interactive-list">
+                    <div class="work-row-item" data-project-id="amperiture">
+                        <span class="work-number">01 //</span>
+                        <h3 class="work-title-text">Amphitheatre</h3>
+                        <span class="work-type-meta">Architecture</span>
+                    </div>
+                    <div class="work-row-item" data-project-id="office-redesign">
+                        <span class="work-number">02 //</span>
+                        <h3 class="work-title-text">Office Interior Redesign</h3>
+                        <span class="work-type-meta">Spatial Optimization</span>
+                    </div>
+                    <div class="work-row-item" data-project-id="cafe-design">
+                        <span class="work-number">03 //</span>
+                        <h3 class="work-title-text">G+1 Hybrid Café Environment</h3>
+                        <span class="work-type-meta">Commercial Space</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logos Group -->
+            <div class="category-group">
+                <h2 class="category-title">Logos</h2>
+                <div class="works-interactive-list">
+                    <div class="work-row-item" data-project-id="opinions-book">
+                        <span class="work-number">04 //</span>
+                        <h3 class="work-title-text">Logo Design</h3>
+                        <span class="work-type-meta">Graphics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Books Group -->
+            <div class="category-group">
+                <h2 class="category-title">Books</h2>
+                <div class="works-interactive-list">
+                    <div class="work-row-item" data-project-id="room-313">
+                        <span class="work-number">05 //</span>
+                        <h3 class="work-title-text">Room 313</h3>
+                        <span class="work-type-meta">Visual Narrative Book</span>
+                    </div>
+                    <div class="work-row-item" data-project-id="people-i-dont-know">
+                        <span class="work-number">06 //</span>
+                        <h3 class="work-title-text">People I Don't Really Know But Definitely Have Opinions About</h3>
+                        <span class="work-type-meta">Visual Narrative Book</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications Group -->
+            <div class="category-group">
+                <h2 class="category-title">Certifications</h2>
+                <div class="works-interactive-list">
+                    <div class="work-row-item" data-project-id="certifications">
+                        <span class="work-number">07 //</span>
+                        <h3 class="work-title-text">Professional Certifications</h3>
+                        <span class="work-type-meta">Credentials</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="disciplines-section">
+            <div class="grid-container">
+                <span class="section-label">Capabilities Matrix</span>
+                <div class="disciplines-grid">
+                    <div class="discipline-column">
+                        <h3>Spatial Design</h3>
+                        <ul>
+                            <li>SketchUp — <span>3D Volumetric & Architectural Modeling</span></li>
+                            <li>AutoCAD — <span>Architectural Drafting Systems</span></li>
+                            <li>ArchiCAD — <span>Volumetric Spatial Modeling</span></li>
+                            <li>Revit — <span>Integrated Building Information Modeling</span></li>
+                        </ul>
+                    </div>
+                    <div class="discipline-column">
+                        <h3>Graphic Systems</h3>
+                        <ul>
+                            <li>Adobe Illustrator — <span>Vector Structural Graphics</span></li>
+                            <li>Digital Sketching — <span>Visual Concept Development</span></li>
+                            <li>Layout & Grid Comp — <span>Editorial Typography Systems</span></li>
+                        </ul>
+                    </div>
+                    <div class="discipline-column">
+                        <h3>Strategic Logic</h3>
+                        <ul>
+                            <li>Visual Storytelling — <span>Narrative Formats</span></li>
+                            <li>Conceptual Thinking — <span>Initial Space Ideation</span></li>
+                            <li>Minimal Aesthetics — <span>Tonal Component Restraint</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CASE STUDY VIEW CONTAINER -->
+    <main id="case-study-view" class="page-view hidden">
+        <div class="grid-container case-study-view">
+            
+            <div class="back-cta" id="close-case-study">
+                ← Back to Selection Index
+            </div>
+
+            <article class="case-header">
+                <h1 class="case-title" id="dynamic-case-title">Project Title</h1>
+                <div class="case-summary-meta">
+                    <div class="meta-block">
+                        <span class="label">Discipline</span>
+                        <span class="val" id="dynamic-case-discipline">Architecture</span>
+                    </div>
+                    <div class="meta-block">
+                        <span class="label">Location / Context</span>
+                        <span class="val" id="dynamic-case-location">Addis Ababa</span>
+                    </div>
+                    <div class="meta-block">
+                        <span class="label">Scale Focus</span>
+                        <span class="val" id="dynamic-case-scale">Grid Configuration</span>
+                    </div>
+                    <div class="meta-block">
+                        <span class="label">Status</span>
+                        <span class="val" id="dynamic-case-status">In Concept Planning</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Media Container Managed Dynamically -->
+            <div class="case-media-stream" id="dynamic-media-mount"></div>
+
+        </div>
+    </main>
+
+    <section class="grid-container contact-section" id="contact">
+        <div class="contact-layout">
+            <h3>Let’s map out structural design directions together.</h3>
+            <div class="contact-links-list">
+                <div class="contact-row-entry">
+                    <span class="tag-lbl">Inquiries / Communications</span>
+                    <a href="mailto:ektube1234@gmail.com" class="link-val">ektube1234@gmail.com</a>
+                </div>
+                <div class="contact-row-entry">
+                    <span class="tag-lbl">Secure Comms Routing</span>
+                    <a href="tel:+2519243853509" class="link-val">+251 924 385 3509</a>
+                </div>
+                <div class="contact-row-entry">
+                    <span class="tag-lbl">Professional Matrix Mapping</span>
+                    <a href="https://linkedin.com/in/betty1897" target="_blank" class="link-val">LinkedIn / betty1897</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="studio-footer">
+        <div class="grid-container footer-inner">
+            <span>&copy; 2026 Elbethel Moges.</span>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectDatabase = {
+                'amperiture': {
+                    title: "Amphitheatre",
+                    discipline: "Architecture Exploration",
+                    location: "Addis Ababa, Ethiopia",
+                    scale: "Architectural Footprint",
+                    status: "Conceptual Blueprint Series",
+                    desc: "An architectural exploration focusing on responsive structural forms, light interactions, and refined spatial configurations.",
+                    images: ["images/amp-hero.jpg"]
+                },
+                'office-redesign': {
+                    title: "26m² Office System Overhaul",
+                    discipline: "Interior Optimization Architecture",
+                    location: "Addis Ababa, Corporate Office",
+                    scale: "26m² Highly Constrained Footprint",
+                    status: "Layout Architecture Deployment",
+                    desc: "A meticulous interior reorganization layout converting a highly constrained, disorganized 26 m² footprint into an efficient administrative workspace structured to support a 5-member corporate operations team.",
+                    images: ["images/office-hero.jpg", "images/office-flow.jpg", "images/office-shelving.jpg", "images/cafe1.jpg" , "images/cafe2.jpg" ,  "images/cafe3.jpg" ,  "images/cafe4.jpg" ,  "images/cafe5.jpg"]
+                },
+                'cafe-design': {
+                    title: "G+1 Hybrid Café Environment",
+                    discipline: "Commercial Architecture",
+                    location: "Urban Retail Hub",
+                    scale: "~100m² Footprint Per Floor Level",
+                    status: "Schematic Space Architecture Portfolio",
+                    desc: "A complex G+1 modern commercial dining destination engineered around micro-spatial diversity.",
+                    images: ["images/cafe-hero.jpg", "images/cafe-lighting.jpg", "images/cafe-terrace.jpg" , "images/office1.jpg" , "images/office2.jpg" , "images/office3.jpg" , "images/office4.jpg" , "images/office5.jpg" , "images/office6.jpg" , "images/office7.jpg" , "images/office8.jpg" , "images/office9.jpg" , "images/office10.jpg"]
+                },
+                'room-313': {
+                    title: "room 313",
+                    discipline: "Illustrated Visual Narrative Book",
+                    location: "Digital Print / Video Production",
+                    scale: "Minimalist Grid Layout Series",
+                    status: "Published and Staged on YouTube",
+                    desc: "A psychological horror short story formatted within a highly constrained, minimalist editorial grid layout.",
+                    images: ["images/room313.jpg"],
+                    pdf: "room313.pdf"
+                },
+                'opinions-book': {
+                    title: "Designs and Identity Systems",
+                    discipline: "Graphic & Identity Systems",
+                    location: "Addis Ababa",
+                    scale: "Visual Vector Assets",
+                    status: "Complete",
+                    desc: "A curated collection of minimalist graphic systems, vector illustrations, and brand identity marks exploring clean geometric restraint and balanced visual syntax.",
+                    munchinCupcakes: [
+                        "images/image1.jpg",
+                        "images/5.jpg", 
+                    ],
+                    timlessInterior:[
+                        "images/image2.jpg",
+                        "images/Timeless.png"
+                    ],
+                    SBIC:[
+                        "images/8.jpg", "images/6.jpg", 
+                    ],
+                    Sync:[
+                        "images/9.jpg" ,"images/1.jpg", 
+                    ],
+                    waverr:[
+                        "images/2.jpg","images/Waverr-02.png"
+                    ],
+                    wings: [                        
+                        "images/3.jpg", 
+                        "images/Wings.png",
+                    ],
+                    ecowave:[ "images/4.jpg", ]
+                },
+                'people-i-dont-know': {
+                    title: "People I Don't Really Know But Definitely Have Opinions About",
+                    discipline: "Editorial Print Layout Strategy",
+                    location: "Independent Production Series",
+                    scale: "Structured Character Column Geometry",
+                    status: "Manuscript Formatting Phase",
+                    desc: "A satirical micro-anthology tracking character behaviors, micro-interactions, and societal patterns observed in daily environments.",
+                    images: ["images/PIDRKBDHOA.jpg"],
+                    pdf: "PIDRLK.pdf"
+                },
+                'certifications': {
+                    title: "Professional Certifications",
+                    discipline: "Academic & Architectural Qualifications",
+                    location: "Addis Ababa / ASTU",
+                    scale: "Verified Qualifications",
+                    status: "Active & Verified",
+                    desc: "Official certifications and academic honors in architectural drafting, structural planning, and design software proficiencies.",
+                    images: [
+                        "images/certificate1.png",
+                        "images/certificate2.png",
+                        "images/certificate3.png"
+                    ]
+                }
+            };
+
+            const homeView = document.getElementById('home-view');
+            const caseStudyView = document.getElementById('case-study-view');
+            const globalHeader = document.getElementById('global-header');
+
+            const dynamicCaseTitle = document.getElementById('dynamic-case-title');
+            const dynamicCaseDiscipline = document.getElementById('dynamic-case-discipline');
+            const dynamicCaseLocation = document.getElementById('dynamic-case-location');
+            const dynamicCaseScale = document.getElementById('dynamic-case-scale');
+            const dynamicCaseStatus = document.getElementById('dynamic-case-status');
+            const dynamicMediaMount = document.getElementById('dynamic-media-mount');
+
+            document.querySelectorAll('.work-row-item').forEach(row => {
+                row.addEventListener('click', () => {
+                    const projectId = row.getAttribute('data-project-id');
+                    const data = projectDatabase[projectId];
+
+                    if (data) {
+                        dynamicCaseTitle.innerText = data.title;
+                        dynamicCaseDiscipline.innerText = data.discipline;
+                        dynamicCaseLocation.innerText = data.location;
+                        dynamicCaseScale.innerText = data.scale;
+                        dynamicCaseStatus.innerText = data.status;
+
+                        dynamicMediaMount.innerHTML = '';
+
+                        let mediaHTML = '';
+
+                        if (projectId === 'certifications') {
+                            mediaHTML += `
+                                <div class="narrative-block-center">
+                                    <h4>Qualifications & Credentials</h4>
+                                    <p>${data.desc}</p>
+                                </div>
+                                <div class="certificates-media-grid">
+                            `;
+                            data.images.forEach((imgSrc, index) => {
+                                mediaHTML += `
+                                    <div class="secondary-media-frame">
+                                        <img src="${imgSrc}" alt="Certificate ${index + 1}">
+                                    </div>
+                                `;
+                            });
+                            mediaHTML += `</div>`;
+                        } else if (projectId === 'opinions-book') {
+                            mediaHTML += `
+                                <div class="narrative-block-center">
+                                    <h4>Concept & Visual Syntax</h4>
+                                    <p>${data.desc}</p>
+                                </div>
+                            `;
+
+                            const logoCategories = [
+                                { name: "Munchin Cupcakes", key: "munchinCupcakes" },
+                                { name: "Timeless Interior", key: "timlessInterior" },
+                                { name: "SBIC", key: "SBIC" },
+                                { name: "Sync", key: "Sync" },
+                                { name: "Waverr", key: "waverr" },
+                                { name: "Wings", key: "wings" },
+                                { name: "Ecowave", key: "ecowave" }
+                            ];
+
+                            logoCategories.forEach(cat => {
+                                if (data[cat.key] && data[cat.key].length > 0) {
+                                    mediaHTML += `<h3 class="gallery-subheading">${cat.name}</h3>`;
+                                    mediaHTML += `<div class="gallery-media-grid">`;
+                                    data[cat.key].forEach(imgSrc => {
+                                        mediaHTML += `
+                                            <div class="secondary-media-frame">
+                                                <img src="${imgSrc}" alt="${cat.name} Design Aspect">
+                                            </div>
+                                        `;
+                                    });
+                                    mediaHTML += `</div>`;
+                                }
+                            });
+                        } else {
+                            if (!data.images || data.images.length === 0) {
+                                mediaHTML += `
+                                    <div class="empty-media-notice">
+                                        There is no image available for this project.
+                                    </div>
+                                    <div class="narrative-block-center">
+                                        <h4>Concept & Spatial Architecture</h4>
+                                        <p>${data.desc}</p>
+                                    </div>
+                                `;
+                            } else {
+                                mediaHTML += `
+                                    <div class="hero-showcase-frame">
+                                        <img src="${data.images[0]}" alt="${data.title} Primary View">
+                                    </div>
+                                    <div class="narrative-block-center">
+                                        <h4>Concept & Spatial Architecture</h4>
+                                        <p>${data.desc}</p>
+                                    </div>
+                                `;
+
+                                if (data.images.length > 1) {
+                                    mediaHTML += `<div class="gallery-media-grid" id="gallery-grid-mount">`;
+                                    for (let i = 1; i < data.images.length; i++) {
+                                        const hideClass = i > 2 ? 'hidden-gallery-item' : '';
+                                        mediaHTML += `
+                                            <div class="secondary-media-frame ${hideClass}">
+                                                <img src="${data.images[i]}" alt="${data.title} Aspect ${i}">
+                                            </div>
+                                        `;
+                                    }
+                                    mediaHTML += `</div>`;
+
+                                    if (data.images.length > 3) {
+                                        mediaHTML += `
+                                            <div class="see-more-trigger-container" id="see-more-action-block">
+                                                <button class="see-more-btn" id="see-more-images-trigger">See More Images</button>
+                                            </div>
+                                        `;
+                                    }
+                                }
+                            }
+
+                            if (data.pdf) {
+                                mediaHTML += `
+                                    <div class="pdf-download-card">
+                                        <h4>Publication Document</h4>
+                                        <p>Access the complete document for ${data.title}.</p>
+                                        <a href="${data.pdf}" target="_blank" class="pdf-btn">View PDF Document (${data.pdf})</a>
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        dynamicMediaMount.innerHTML = mediaHTML;
+
+                        const seeMoreBtn = document.getElementById('see-more-images-trigger');
+                        if (seeMoreBtn) {
+                            seeMoreBtn.addEventListener('click', () => {
+                                document.querySelectorAll('#gallery-grid-mount .hidden-gallery-item').forEach(el => {
+                                    el.classList.remove('hidden-gallery-item');
+                                });
+                                document.getElementById('see-more-action-block').style.display = 'none';
+                            });
+                        }
+
+                        homeView.style.opacity = '0';
+                        setTimeout(() => {
+                            homeView.classList.add('hidden');
+                            caseStudyView.classList.remove('hidden');
+                            window.scrollTo(0, 0);
+                            setTimeout(() => {
+                                caseStudyView.style.opacity = '1';
+                            }, 50);
+                        }, 400);
+                    }
+                });
+            });
+
+            document.getElementById('close-case-study').addEventListener('click', () => {
+                caseStudyView.style.opacity = '0';
+                setTimeout(() => {
+                    caseStudyView.classList.add('hidden');
+                    homeView.classList.remove('hidden');
+                    window.scrollTo(0, 0);
+                    setTimeout(() => {
+                        homeView.style.opacity = '1';
+                    }, 50);
+                }, 400);
+            });
+
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > lastScrollY && window.scrollY > 150) {
+                    globalHeader.style.transform = 'translateY(-100px)';
+                } else {
+                    globalHeader.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        });
+    </script>
+</body>
+</html>
